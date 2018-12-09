@@ -1,0 +1,39 @@
+####
+# ATENTION:
+# Replace all occurences of marshall with your project's name
+####
+
+# v2 syntax
+version: '2'
+
+# Named volumes
+volumes:
+  # Postgres Data
+  marshall-postgres-data:
+    driver: local
+
+services:
+  # Postgres (10.3)
+  postgres:
+    image: postgres:10.3
+    container_name: marshall-postgres
+    volumes:
+      - marshall-postgres-data:/var/lib/postgresql/data
+    ports:
+      - "5430:5432"
+    environment:
+      - POSTGRES_PASSWORD=marshall
+      - POSTGRES_DB=marshall
+      - POSTGRES_USER=marshall
+
+  # PHP (with Nginx)
+  # you can change from nginx to apache, just change session 'image'
+  app:
+    image: ambientum/php:7.2-nginx
+    container_name: marshall-app
+    volumes:
+      - .:/var/www/app
+    ports:
+      - "8080:8080"
+    links:
+      - postgres
