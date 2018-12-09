@@ -1,11 +1,14 @@
 // Update with your config settings.
 
 module.exports = {
-  client: 'postgresql',
+  client: 'pg',
+  version: '10.3',
   connection: {
-    database: 'knowledge',
-    user:     'postgres',
-    password: '123456'
+    host : '127.0.0.1',
+    port: '5430',
+    user : 'marshall',
+    password : 'marshall',
+    database : 'marshall'
   },
   pool: {
     min: 2,
