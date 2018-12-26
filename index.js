@@ -8,7 +8,6 @@ require('./config/mongodb')
 
 app.db = db
 app.mongoose = mongoose
-
 app.use(bodyParser.text())
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded())

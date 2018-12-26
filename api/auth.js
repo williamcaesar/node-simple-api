@@ -29,9 +29,22 @@ module.exports = app => {
         }
 
         res.json({
-            ...payload,
-            token: jwt.encode(payload, authSecret)
-        })
+            success:{
+               "token":jwt.encode(payload, authSecret)
+            },
+            account:1,
+            language:"pt-br",
+            relogin:false,
+            tours:3,
+            bots:[
+               {
+                  follow:null,
+                  unfollow:null,
+                  like:null
+               }
+            ],
+            payment:"em desenvolvimento"
+         })
     }
 
     const validateToken = async (req, res) => {

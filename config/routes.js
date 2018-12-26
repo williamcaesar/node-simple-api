@@ -2,9 +2,10 @@ const admin = require('./admin')
 
 module.exports = app => {
     app.post('/signup', app.api.user.save)
-    app.post('/signin', app.api.auth.signin)
+    app.post('/login', app.api.auth.signin)
     app.post('/validateToken', app.api.auth.validateToken)
-
+    app.route('/validate-token')
+        .get(app.api.instagram.validateToken)
     app.route('/users')
         .all(app.config.passport.authenticate())
         .post(admin(app.api.user.save))
@@ -50,4 +51,18 @@ module.exports = app => {
     app.route('/stats')
         .all(app.config.passport.authenticate())
         .get(app.api.stat.get)
+
+    app.route('/instagram')
+        .post(app.api.instagram.login)
+
+    app.route('/instagram/challenge')
+        .post(app.api.instagram.getChallenge)
+
+    app.route('/info')
+        .get(app.api.instagram.info)
+
+    app.route('/feed')
+        .get(app.api.instagram.feed)
+
+    
 }
