@@ -63,6 +63,13 @@ module.exports = app => {
 
     app.route('/feed')
         .get(app.api.instagram.feed)
+        
+    app.route('/recent-activity')
+        .get(app.api.instagram.recentActivity)
+
+    app.route('/schedule')
+        .get(app.api.autoFollowSchedule.save)
+
 
     
 }

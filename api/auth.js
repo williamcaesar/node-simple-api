@@ -1,6 +1,6 @@
 const { authSecret } = require('../.env')
 const jwt = require('jwt-simple')
-const bcrypt = require('bcrypt-nodejs')
+const bcrypt = require('bcryptjs')
 
 module.exports = app => {
     const signin = async (req, res) => {
@@ -11,7 +11,7 @@ module.exports = app => {
         const user = await app.db('users')
             .where({ email: req.body.email })
             .first()
-
+        
         if (!user) return res.status(400).send('Usuário não encontrado!')
 
         const isMatch = bcrypt.compareSync(req.body.password, user.password)
@@ -30,12 +30,12 @@ module.exports = app => {
 
         res.json({
             success:{
-               "token":jwt.encode(payload, authSecret)
+               "token":jwt.encode(payload, authSecret),
             },
-            account:1,
-            language:"pt-br",
+            account: user.ip_id,
+            language:user.laguage,
             relogin:false,
-            tours:3,
+            tours:user.tours,
             bots:[
                {
                   follow:null,
